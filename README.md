@@ -1,5 +1,5 @@
 # Application de Messagerie — Kaypic Communication
-Cette application permet aux utilisateurs de communiquer en temps réel à travers des groupes et conversations privées, avec un design inspiré de Microsoft Teams et une palette de couleurs personnalisée.
+Une platforme de communication inspirée de la plateforme existante https://circle.kaypic.com/
 
 ## Fonctionnalités
 ## Gestion des groupes 
