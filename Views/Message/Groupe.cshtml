@@ -1,0 +1,125 @@
+﻿@{
+
+    ViewData["Title"] = "Groupe";
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<link rel="stylesheet" href="~/css/GroupeChat.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="chat-layout">
+ 
+    <!-- SIDEBAR -->
+
+<aside class="sidebar">
+        <a asp-controller="Message" asp-action="Messages" style="color: whitesmoke">
+            <i class="fas fa-comments"></i>
+        </a>
+        <a asp-controller="Message" asp-action="Groupe" style="color: whitesmoke">
+            <i class="fas fa-users"></i>
+        </a>
+        <a asp-controller="Notifications">
+            <i class="fas fa-bell"></i>
+        </a>        
+        <a asp-controller="Calendrier" asp-action="Index" style="color: whitesmoke">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+        </a>
+        <a asp-controller="Message" asp-action="Annonces" style="color: whitesmoke">
+            <i class="fas fa-bullhorn"></i>
+        </a>
+</aside>
+ 
+    <!-- LISTE DES GROUPES -->
+<section class="group-list-panel">
+<h2>Groupes</h2>
+ 
+        <div class="search-box">
+<input type="text" placeholder="Search groups..." />
+</div>
+ 
+        <!-- Exemple dynamique -->
+<div class="group-item active">
+<div class="group-avatar">K</div>
+<div class="group-info">
+<div class="group-name">Kaypic Team</div>
+<div class="group-members">12 membres</div>
+</div>
+</div>
+ 
+        <div class="group-item">
+<div class="group-avatar">D</div>
+<div class="group-info">
+<div class="group-name">Développeurs</div>
+<div class="group-members">6 membres</div>
+</div>
+</div>
+ 
+    </section>
+ 
+    <!-- FENETRE DU GROUPE -->
+<section class="chat-window">
+ 
+        <div class="chat-header">
+<div class="title">
+<div class="group-avatar header-avatar">K</div>
+<span>Kaypic Team</span>
+</div>
+ 
+            <div class="header-icons">
+<i class="fas fa-users"></i>
+<i class="fas fa-phone"></i>
+</div>
+</div>
+ 
+        <!-- Messages -->
+<div class="messages-area">
+ 
+            <!-- Message reçu (avec nom de l'expéditeur) -->
+<div class="msg-block">
+<div class="sender-name">Tessa</div>
+<div class="msg msg-received">Hello team!</div>
+</div>
+ 
+            <div class="msg-block">
+<div class="sender-name">Derek</div>
+<div class="msg msg-received">Meeting in 10 minutes</div>
+</div>
+ 
+            <!-- Message envoyé -->
+<div class="msg-block">
+<div class="sender-name self">Moi</div>
+<div class="msg msg-sent">Ok j'arrive !</div>
+</div>
+ 
+        </div>
+
+        <!-- Barre d’envoi -->
+        <div class="input-bar">
+            <!-- Champ de saisie à gauche -->
+            <div class="input-field">
+                <input type="text" placeholder="Écrire un message au groupe..." />
+            </div>
+
+            <!-- Icônes + bouton regroupés à droite -->
+            <div class="input-actions">
+                <div class="input-icons">
+                    <i class="fas fa-paperclip"></i>
+                    <i class="far fa-laugh"></i>
+                </div>
+
+                <button class="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+ 
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.min.js"></script>
+    <script src="~/js/Groupe.js"></script>
+</body>
+</html>

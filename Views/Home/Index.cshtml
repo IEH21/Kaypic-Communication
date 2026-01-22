@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Accueil";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kaypic Accueil</title>
+    <link rel="stylesheet" href="/css/acceuil.css" />
+</head>
+<body>
+    <!-- Header -->
+
+    <section class="hero">
+        <div class="overlay">
+            <h1>Bienvenue sur Kaypic</h1>
+            <p>Gérez vos activités sportives et communautaires facilement.</p>
+            <a asp-action="Inscription" class="btn-primary">S'inscrire maintenant</a>
+            <a asp-controller="AdminDashboard" asp-action="Index" class="btn-primary">AdminDashboard</a>
+
+        </div>
+    </section>
+
+
+    <!-- Déclaration de mission -->
+    <section class="mission">
+        <p>
+            Pourquoi Kaypic ™ ? <br />
+
+            Pour que vous dirigiez un club sportif communautaire, une colonie de vacances, un programme de tutorat, etc.,
+            Kaypic ™ offre des outils et des services puissants à un prix abordable.
+
+            À mesure que votre organisation grandit, des fonctionnalités avancées comme l’IA, les API et les widgets
+            facilitent la gestion et l’expansion.
+        </p>
+    </section>
+
+    <!-- Section Sécurité -->
+    <section class="safety">
+        <h2><span class="highlight">La sécurité scolaire</span> est notre priorité absolue.</h2>
+        <div class="features">
+            <div class="feature">Nous ne vendrons jamais, JAMAIS les données des élèves</div>
+            <div class="feature">Vos données peuvent être récupérées dans un délai de 2 jours ouvrables</div>
+            <div class="feature">Toutes les données sont chiffrées et stockées dans nos systèmes</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!--
+    <footer class="footer">
+        <div class="footer-logo">KAYPIC</div>
+        <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+            <a href="#">About</a>
+            <a href="#">Careers</a>
+            <a href="#">Help</a>
+            <a href="#">Resources</a>
+        </div>
+        <div class="copyright">kaypic©2025</div>
+    </footer>
+    -->
+
+</body>
+</html>

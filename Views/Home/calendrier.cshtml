@@ -1,0 +1,73 @@
+﻿@model List<Web3_kaypic.Models.Calender>
+
+@{
+    ViewData["Title"] = "Calendrier";
+}
+<link rel="stylesheet" href="~/css/calendrier.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+<h1 class="title">
+    <i class="fa fa-calendar-check-o" aria-hidden="false">
+    </i>
+    Mon Calendrier
+
+</h1>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert">@TempData["SuccessMessage"]</div>
+}
+
+<div class="calendar-container">
+
+    <!-- === Formulaire d'ajout === -->
+    <div class="add-form">
+        <h2>Ajouter un événement</h2>
+        <form asp-action="Ajouter" method="post">
+            <input type="text" name="Title" placeholder="Titre" required />
+            <input type="datetime-local" name="StartDate" required />
+            <input type="datetime-local" name="EndDate" required />
+            <textarea name="Description" placeholder="Description..."></textarea>
+            <button type="submit" class="btn-ajouter">Ajouter</button>
+        </form>
+    </div>
+
+    <!-- === Liste des événements === -->
+    <div class="event-list">
+        <h2>Liste des événements</h2>
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <p>Aucun événement pour l’instant.</p>
+        }
+        else
+        {
+            <ul>
+                @foreach (var ev in Model)
+                {
+                    <li class="event-item">
+                        <div class="event-details">
+                            <div>
+                                <strong>@ev.Title</strong><br />
+                                <span>
+                                    📆 Du @ev.StartDate.ToString("dd/MM/yyyy hh:mm tt")
+                                    au @ev.EndDate.ToString("dd/MM/yyyy hh:mm tt")
+                                </span><br />
+                                <em>@ev.Description</em>
+                            </div>
+
+                            <div class="event-actions">
+                                <form asp-action="Supprimer" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@ev.Id" />
+                                    <button type="submit" class="btn-supprimer" onclick="return confirm('Supprimer cet événement ?');">Supprimer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@using web3_kaypic.Models
+@model RoleEdit
+@{
+    ViewData["Title"] = "Update";
+    Layout = null;
+
+
+}
+
+
+<head>
+    <link rel="stylesheet" href="~/css/RoleStyle.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<h1 class="titre">Modifier Rôle</h1>
+<a asp-action="Index" class="btn btn-secondary">
+    <i class="fa-solid fa-circle-arrow-left"></i>
+    Retour
+</a>
+
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post">
+    <input type="hidden" name="roleName" value="@Model.Role.Name" />
+    <input type="hidden" name="roleId" value="@Model.Role.Id" />
+
+    <h2 class="bg-info p-1 text-white">Ajouter à @Model.Role.Name</h2>
+    <table class="table table-bordered table-sm">
+        @if (Model.NonMembers.Count() == 0)
+        {
+            <tr><td colspan="2">Tous les utilisateurs sont membres</td></tr>
+        }
+        else
+        {
+            @foreach (ApplicationUser user in Model.NonMembers)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        <input type="checkbox" name="AddIds" value="@user.Id">
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <h2 class="bg-info p-1 text-white">Supprimer de @Model.Role.Name</h2>
+    <table class="table table-bordered table-sm">
+        @if (Model.Members.Count() == 0)
+        {
+            <tr><td colspan="2">Aucun utilisateurs n'est members</td></tr>
+        }
+        else
+        {
+            @foreach (ApplicationUser user in Model.Members)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        <input type="checkbox" name="DeleteIds" value="@user.Id">
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+</form>

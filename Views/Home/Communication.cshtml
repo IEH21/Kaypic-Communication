@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Communication";
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre de Communication</title>
+    <link rel="stylesheet" href="~/css/Communication.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <main class="communication-center">
+        <h1>Centre de Communication</h1>
+        <p class="subtitle">Restez connecté avec votre équipe, recevez les annonces et partagez des documents</p>
+
+        <nav class="tabs">
+            <button class="tab">
+                <i class="fa-solid fa-file-lines"></i> Documents
+            </button>
+            <button class="tab">
+                <i class="fa-solid fa-image"></i> Galerie
+            </button>
+            <button class="tab">
+                <i class="fa-solid fa-shield-halved"></i> Sécurité
+            </button>
+            <button class="tab">
+                <a asp-controller="Message" asp-action="Messages" style="color: #5c0010"><i class="fa-solid fa-message"></i> messages</a>
+            </button>
+             <button class="tab">
+                
+                <a asp-controller="Calendrier" asp-action="Index" style="color: #5c0010"><i class="fa fa-calendar" aria-hidden="true"></i>Calendrier</a>
+            </button>
+        </nav>
+
+        <section class="content">
+            <aside class="conversations">
+                <h2>Conversations</h2>
+
+                <div class="conversation">
+                    <div class="icon">
+                        <i class="fa-solid fa-basketball-ball"></i>
+                    </div>
+                    <div class="details">
+                        <h3>Équipe Basketball U16</h3>
+                        <p>Coach Martin: N'oubliez pas l'entraînement de demain à ...</p>
+                    </div>
+                    <span class="badge"></span>
+                </div>
+
+                <div class="conversation">
+                    <div class="icon">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <div class="details">
+                        <a asp-controller="Circle" asp-action="Circle" style="color:#ff9999;">Annonces Officielles</a>
+                        <p>Administration: Nouveaux équipements disponibles au g...</p>
+                    </div>
+                    <span class="badge"></span>
+                </div>
+
+                <div class="conversation">
+                    <div class="icon">
+                        <i class="fa-solid fa-futbol"></i>
+                    </div>
+                    <div class="details">
+                        <h3>Parents Football</h3>
+                        <p>Mme Dupont: Qui peut aider pour le transport samedi ?</p>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="chat">
+                <p class="placeholder">Sélectionnez une conversation pour commencer</p>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,207 @@
+﻿/* ❌ Enlève ces règles globales qui cassent la mise en page des autres pages
+body {
+    display: flex;
+    height: 100vh;
+}
+*/
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    color: #FAF3F3;
+    background-color: #5c0010;
+}
+/* ✅ Centre SEULEMENT la zone de connexion */
+.auth-shell {
+    min-height: 70vh; /* hauteur suffisante pour centrer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px; /* évite de coller sous le header sticky */
+    background-color: #ffe4ea; /* si tu veux la couleur juste ici */
+}
+
+.auth-card {
+    width: 360px;
+    background: #fff;
+    padding: 36px 32px;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* le reste de tes styles peut rester identique */
+.email-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 6px 0;
+}
+
+.btn-continue {
+    width: 100%;
+    padding: 12px;
+    background: #7a0b0b;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0;
+    color: #888;
+}
+
+    .separator::before, .separator::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+
+.btn-social {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #f6f6f6;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.terms {
+    font-size: 12px;
+    color: #9b9b9b;
+}
+
+.small-note {
+    font-size: 13px;
+    color: #666;
+    margin-top: 12px;
+}
+
+.field-validation {
+    color: #b00020;
+    font-size: 12px;
+}
+
+
+
+/* Footer */
+.footer {
+    background-color: #4d1f1f;
+    color: white;
+    padding: 3rem 5rem;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    margin-bottom: 2rem;
+    list-style: none;
+}
+
+    .footer-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+    }
+
+        .footer-links a:hover {
+            color: #c32020;
+        }
+
+.footer .copyright {
+    position: absolute;
+    bottom: 1rem;
+    left: 5rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+btn-primary {
+    background-color: #990000;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0.75rem 2.5rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 111, 97, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #e4717a;
+    color: #F9F8F8;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.7rem 2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(228, 113, 122, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #990000;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0.75rem 2.5rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 111, 97, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* === Boutons === */
+.btn-primary {
+    background-color: #e4717a;
+    color: #F9F8F8;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.7rem 2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(228, 113, 122, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+    .btn-primary:hover {
+        background-color: #9e3b42;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(158, 59, 66, 0.5);
+    }
+
+.container {
+    background-color: #ffe4ea;
+}

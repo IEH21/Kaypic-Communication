@@ -1,0 +1,188 @@
+﻿/* ================================
+   PALETTE COULEURS
+================================ */
+:root {
+    --rouge-fonce: #5c0010;
+    --rouge-moyen: #9e3b42;
+    --rouge-clair: #e4717a;
+    --rose-pastel: #f5abb0;
+    --rose-tres-clair: #ffe4ea;
+    --noir: #1a1a1a;
+    --blanc: #ffffff;
+    --sidebar-bg: #2b0008;
+    --sidebar-hover: #47000f;
+    --sidebar-active: #ffae00;
+    --main-bg: #ffe4ea;
+    --radius: 12px;
+    --shadow: 0 4px 18px rgba(0,0,0,0.15);
+}
+
+
+/* ================================
+   GLOBAL LAYOUT
+================================ */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: var(--main-bg);
+    color: var(--noir);
+    display: flex;
+    height: 100vh;
+}
+
+.kaypic-chat-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ================================
+   SIDEBAR (Style Teams)
+================================ */
+.kaypic-sidebar {
+    width: 100px;
+    background: var(--rouge-fonce);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+
+.sidebar-top, .sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: var(--radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+    .nav-icon i, .nav-icon a {
+        color: var(--blanc);
+        text-decoration: none;
+        font-size: 0.8em;
+        text-align: center;
+    }
+
+    .nav-icon:hover {
+        background: var(--rose-pastel);
+    }
+
+    .nav-icon.active {
+        background: var(--sidebar-active);
+    }
+
+        .nav-icon.active i {
+            color: var(--noir);
+        }
+
+
+/* ================================
+   MAIN CONTAINER
+================================ */
+.kaypic-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+.kaypic-header {
+    padding: 20px 0;
+}
+
+    .kaypic-header h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+
+/* ================================
+   MESSAGE CONTAINER (scroll)
+================================ */
+.kaypic-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+    .kaypic-messages::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .kaypic-messages::-webkit-scrollbar-thumb {
+        background: var(--rouge-moyen);
+        border-radius: 10px;
+    }
+
+
+/* ================================
+   MESSAGE INPUT BAR (fixée en bas)
+================================ */
+.kaypic-input-area {
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    right: 20px;
+    height: 70px;
+    background: var(--rose-tres-clair);
+    border-radius: var(--radius) var(--radius) 0 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 20px;
+    box-shadow: 0 -3px 12px rgba(0,0,0,0.15);
+}
+
+    .kaypic-input-area input {
+        flex: 1;
+        height: 45px;
+        padding: 0 15px;
+        border-radius: var(--radius);
+        border: 1px solid var(--rose-pastel);
+        background: var(--blanc);
+        font-size: 15px;
+        outline: none;
+        box-shadow: var(--shadow);
+    }
+
+.file-upload-btn {
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--rouge-moyen);
+}
+
+#sendBtn {
+    width: 50px;
+    height: 45px;
+    border-radius: var(--radius);
+    background: var(--rouge-moyen);
+    border: none;
+    color: var(--blanc);
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    #sendBtn:hover {
+        background: var(--rouge-fonce);
+        transform: translateY(-2px);
+    }

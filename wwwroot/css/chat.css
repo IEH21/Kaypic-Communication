@@ -1,0 +1,279 @@
+﻿:root {
+    --sidebar: #5c0010;
+    --msg-received: #9e3b42;
+    --msg-sent: #f5abb0;
+    --background: #ffe4ea;
+    --text: #000000;
+    --rouge-fonce: #5c0010;
+    --rouge-moyen: #9e3b42;
+    --rouge-clair: #e4717a;
+    --rose-pastel: #f5abb0;
+    --rose-tres-clair: #ffe4ea;
+    --noir: #1a1a1a;
+    --blanc: #ffffff;
+    --sidebar-bg: #2b0008;
+    --sidebar-hover: #47000f;
+    --sidebar-active: #ffae00;
+    --main-bg: #ffe4ea;
+    --radius: 12px;
+    --shadow: 0 4px 18px rgba(0,0,0,0.15);
+}
+
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.chat-layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 70px;
+    background-color: var(--sidebar);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    gap: 35px;
+}
+
+    .sidebar i {
+        color: #ffe4ea;
+        font-size: 22px;
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+/* LISTE DES CHATS */
+.chat-list-panel {
+    width: 300px;
+    background-color: #f8c8cf;
+    border-right: 1px solid #f0a8b0;
+    display: flex;
+    flex-direction: column;
+}
+
+    .chat-list-panel h2 {
+        padding: 15px;
+    }
+
+.search-box input {
+    width: 85%;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #fad5db;
+    outline: none;
+}
+
+/* Items */
+.chat-item {
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 4px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+    .chat-item.active {
+        background-color: #f0a4ad;
+        font-weight: bold;
+    }
+
+/* Avatar */
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: var(--msg-received);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CHAT WINDOW */
+.chat-window {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 15px 20px;
+    background-color: #f3b5bb;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #f0a8b0;
+}
+
+.header-icons {
+    padding: 15px;
+    display: flex; /* important pour activer gap */
+    align-items: center;
+    border: none;
+    color: var(--blanc);
+    gap: 15px; /* espace de 15dp (≈15px) entre les icônes */
+}
+
+    .header-icons i {
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+        .header-icons i:hover {
+            color: var(--sidebar-active); /* exemple : changement de couleur au survol */
+        }
+
+    .header-icons:hover {
+        background: var(--rouge-fonce);
+        transform: translateY(-2px);
+    }
+
+/* Messages */
+.messages-area {
+    flex: 1;
+    padding: 20px 35px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.msg {
+    max-width: 60%;
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 18px;
+}
+
+/* Envoyé (rose pastel) */
+.msg-sent {
+    background-color: var(--msg-sent);
+    align-self: flex-end;
+    border-radius: 18px 18px 0 18px;
+}
+
+/* Reçu (rouge moyen) */
+.msg-received {
+    background-color: var(--msg-received);
+    color: white;
+    align-self: flex-start;
+    border-radius: 18px 18px 18px 0;
+}
+
+/* INPUT BAR */
+.input-bar {
+    padding: 10px 15px;
+    background-color: #f3b5bb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* saisie à gauche, actions à droite */
+    border-top: 1px solid var(--rose-pastel);
+}
+
+/* Champ de saisie = 75% */
+.input-field {
+    flex: 0 0 75%;
+}
+
+    .input-field input {
+        width: 100%;
+        height: 40px;
+        padding: 0 12px;
+        border-radius: var(--radius);
+        border: 1px solid var(--rose-pastel);
+        background: var(--blanc);
+        font-size: 14px;
+        outline: none;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+        color: var(--noir);
+    }
+
+        .input-field input:focus {
+            border: 1px solid var(--rouge-moyen);
+            box-shadow: 0 0 4px rgba(158, 59, 66, 0.5);
+        }
+
+/* Bloc actions à droite */
+.input-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Icônes */
+.input-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--rouge-moyen);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+    .input-icons i:hover {
+        color: var(--rouge-fonce);
+    }
+
+/* Bouton d’envoi */
+.send-btn {
+    width: 45px;
+    height: 40px;
+    border-radius: var(--radius);
+    background: var(--rouge-moyen);
+    border: none;
+    color: var(--blanc);
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    box-shadow: var(--shadow);
+}
+
+    .send-btn:hover {
+        background: var(--rouge-fonce);
+        transform: translateY(-2px);
+    }
+
+/*recherche*/
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px; /* ajuste selon besoin */
+}
+
+.search-box .entrez {
+    flex: 1; /* prend toute la largeur */
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 6px;
+}
+
+.search-box .icon-search button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: #555;
+}
+
+.msg img {
+    border-radius: 6px;
+    max-width: 100%;
+    height: auto;
+}

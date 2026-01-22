@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<body>
+    <!-- Header -->
+<header>@await Html.PartialAsync("Header")</header>
+
+    <div class="container">
+        <main role="main" class="pb-3">@RenderBody()</main>
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.min.js" integrity="sha512-kkMt8UThSmWcdXLYFaGZ/U6vyWSNLZMUWQ5SMeF80pGqrEkH5ei9D/3MbVQpB8p7D5C3A4vlX7BpsWTT2BfB6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/Chat.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @await Html.PartialAsync("_AIAssistant")
+    <footer>@await Html.PartialAsync("Footer")</footer>
+</body>
+</html>

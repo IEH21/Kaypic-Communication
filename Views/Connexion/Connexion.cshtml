@@ -1,0 +1,54 @@
+﻿@model Web3_kaypic.Models.connexion
+@{
+    ViewData["Title"] = "Connexion";
+}
+@* LE BON *@
+
+<link rel="stylesheet" href="~/css/connexion.css" />
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert" style="background-color:#d1e7dd; color:#0f5132; border-left:6px solid #198754; padding:10px; border-radius:10px; width:320px; text-align:center; margin:auto;">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert" style="background-color:#f8d7da; color:#842029; border-left:6px solid #dc3545; padding:10px; border-radius:10px; width:320px; text-align:center; margin:15px auto;">
+        @TempData["Error"]
+    </div>
+}
+
+<section class="auth-shell">
+    <div class="auth-card">
+        <h1 class="headline">Connexion</h1>
+        <p class="sub">Entrer votre email et mot de passe</p>
+
+        <form asp-controller="Connexion" asp-action="Connexion" method="post">
+
+            <input asp-for="Email" placeholder="email@domain.com" class="email-input" />
+            <span asp-validation-for="Email" class="field-validation"></span>
+
+            <input asp-for="Password" placeholder="Password" type="password" class="email-input" />
+            <span asp-validation-for="Password" class="field-validation"></span>
+
+            <button type="submit" class="btn-primary">Continue</button>
+        </form>
+
+        <div class="separator"><span>or</span></div>
+
+        <button class="btn-social" type="button">Continue with Google</button>
+        <button class="btn-social" type="button">Continue with Apple</button>
+
+        <p style="text-align:center; margin-top:1rem;">
+            Pas encore de compte ?
+            <a asp-controller="Home" asp-action="Inscription" style="color:#ff9999;">Créer un compte</a>
+        </p>
+
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

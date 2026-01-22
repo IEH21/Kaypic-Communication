@@ -1,0 +1,205 @@
+﻿@model IEnumerable<Web3_kaypic.Models.TMessagingChat>
+
+@{
+
+    ViewData["Title"] = "Messages";
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<link rel="stylesheet" href="~/css/chat.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="chat-layout">
+
+    <aside class="sidebar">
+        <a asp-controller="Message" asp-action="Messages" style="color: whitesmoke">
+            <i class="fas fa-comments"></i>
+        </a>
+            <a asp-controller="Message" asp-action="MessagesSelf" style="color: whitesmoke">
+            <i class="fas fa-note-sticky"></i> <!-- FA v6 -->
+
+        </a>
+        <a asp-controller="Message" asp-action="Groupe" style="color: whitesmoke">
+            <i class="fas fa-users"></i>
+        </a>
+        <a asp-controller="Notifications">
+            <i class="fas fa-bell"></i>
+        </a>
+        <a asp-controller="Calendrier" asp-action="Index" style="color: whitesmoke">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+        </a>
+        <a asp-controller="Message" asp-action="Annonces" style="color: whitesmoke">
+            <i class="fas fa-bullhorn"></i>
+        </a>
+    </aside>
+
+    <!-- LISTE DES CHATS -->
+        <section class="chat-list-panel">
+            <h2>Chat</h2>
+
+            <form method="get" asp-action="Messages">
+                <div class="search-box">
+                    <div class="entrez">
+                        <input type="text" name="searchTerm" placeholder="Rechercher..." />
+                    </div>
+                    <div class="icon-search">
+                        <button type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                </div>
+
+            </form>
+
+            @foreach (var chat in Model)
+            {
+                var lastMessage = chat.Messages
+                .OrderByDescending(m => m.created_at)
+                .FirstOrDefault();
+
+                var firstPersona = chat.ChatPersonas.FirstOrDefault()?.Persona;
+
+                <div class="chat-item" data-chat-id="@chat.mc_id">
+                    <div class="avatar">@firstPersona?.mp_fname?.Substring(0, 1)</div>
+                    <div class="chat-info">
+                        <div class="name">@firstPersona?.mp_fname @firstPersona?.mp_lname</div>
+                        <div class="last-message">@lastMessage?.mcpm_message</div>
+                    </div>
+                </div>
+            }
+
+        </section>
+
+    <!-- FENÊTRE DU CHAT -->
+    <section class="chat-window">
+
+        <div class="chat-header">
+            <div class="title">
+                <div class="avatar header-avatar">T</div>
+                <span>Tessa Cooper</span>
+            </div>
+
+            <div class="header-icons">
+                <i class="fas fa-video"></i>
+                <i class="fas fa-phone"></i>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="messages-area">
+
+            <!-- Message envoyé -->
+            <div class="msg msg-sent">Hello!</div>
+            <div class="msg msg-sent">How are you?</div>
+
+            <!-- Message reçu -->
+            <div class="msg msg-received">I'm good, thanks! What about you?</div>
+
+            <div class="msg msg-sent">I'm fine too.</div>
+        </div>
+
+            <!--
+                MESSAGE
+            -->
+            <div class="messages-area">
+                @foreach (var chat in Model)
+                {
+                    <h3>@chat.mc_title</h3>
+
+                    <!-- Messages texte -->
+                    @foreach (var msg in chat.Messages)
+                    {
+                        <div class="msg-block">
+                            <div class="sender-name">@msg.ChatPersona.Persona.mp_fname</div>
+                            <div class="msg msg-received">@msg.mcpm_message</div>
+                        </div>
+                    }
+
+                    <!-- Médias -->
+                    @foreach (var media in chat.Medias)
+                    {
+                        <div class="msg-block">
+                            <div class="sender-name">Fichier</div>
+                            <div class="msg msg-sent">
+                                @if (media.mcm_media_category == "f")
+                                {
+                                    <a href="@media.mcm_url" target="_blank">
+                                        📎 @System.IO.Path.GetFileName(media.mcm_url)
+                                    </a>
+                                }
+                                else if (media.mcm_media_category == "i")
+                                {
+                                    <img src="@media.mcm_url" alt="image envoyée" style="max-width:200px;" />
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+
+
+        <!-- BARRE DE SAISIE -->
+        <div class="input-bar">
+            <div class="input-field">
+                <input id="messageInput" type="text" placeholder="Écrire un message..." />
+            </div>
+
+                <div class="input-icons">
+                    <!-- Fichier -->
+                    <label for="fileInput">
+                        <i class="fas fa-paperclip"></i>
+                    </label>
+                    <input id="fileInput" type="file" style="display:none;" />
+
+                    <!-- Réaction -->
+                    <button id="reactionButton" type="button">
+                        <i class="far fa-laugh"></i>
+                    </button>
+                </div>
+
+
+            <button class="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+
+       
+    </section>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.min.js"></script> 
+<script src="~/js/Messages.js"></script>
+    <script>
+        document.getElementById("fileInput").addEventListener("change", function() {
+            if (this.files.length > 0) {
+                const formData = new FormData();
+                formData.append("file", this.files[0]);
+                formData.append("mc_id", 123); // id du chat courant
+                formData.append("ts_id", 456); // id de la saison
+                formData.append("created_by_mp_id", 789); // id du persona
+
+                fetch("/Message/Upload", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("Fichier envoyé :", data.url);
+                    // 👉 tu peux ici mettre à jour ton interface pour afficher l'image
+                })
+                .catch(err => console.error("Erreur :", err));
+            }
+        });
+    </script>
+
+
+</body>
+</html>

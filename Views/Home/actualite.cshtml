@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<Web3_kaypic.Models.Post>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Home page";
+}
+<link rel="stylesheet" href="~/css/actualite.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="feed-container">
+    @Html.Partial("Header")
+
+    <main class="feed">
+        <form asp-action="Create" method="post" class="post-box">
+            <div class="user-avatar">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <!--<img src="/image/account.png" alt=" " />-->
+            </div>
+            <div class="post-input">
+                <textarea name="Content" placeholder="Something to say?" required></textarea>
+                <div class="post-actions">
+                    <div class="icons">
+                        <i class="fa-regular fa-face-smile"></i>
+                        <i class="fa-regular fa-image"></i>
+                        <i class="fa-solid fa-paperclip"></i>
+                    </div>
+                    <button type="submit" class="btn-post">Post</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Affichage dynamique des posts -->
+        @foreach (var post in Model)
+        {
+            <div class="post">
+                <div class="user-avatar">
+                    <!--<img src="@post.UserAvatarUrl" alt="User avatar" /> -->
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </div>
+                <div class="post-content">
+                    <div class="post-header">
+                        <span class="username">@post.UserName</span>
+                        <span class="time">@GetTimeAgo(post.CreatedAt)</span>
+                    </div>
+                    <p>@post.Content</p>
+                    <div class="post-footer">
+                        <i class="fa-regular fa-comment"></i>
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+        }
+    </main>
+
+</div>
+
+@functions {
+    string GetTimeAgo(DateTime date)
+    {
+        var ts = DateTime.Now - date;
+        if (ts.TotalMinutes < 1) return "Just now";
+        if (ts.TotalMinutes < 60) return $"{(int)ts.TotalMinutes}m";
+        if (ts.TotalHours < 24) return $"{(int)ts.TotalHours}h";
+        return $"{(int)ts.TotalDays}d";
+    }
+}

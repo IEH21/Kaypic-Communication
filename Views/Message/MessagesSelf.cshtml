@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "MessagesSelf";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kaypic Communication</title>
+    <link rel="stylesheet" href="/css/MessagesSelf.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="kaypic-chat-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <a style="color: whitesmoke" href="/Message/Messages">
+                <i class="fas fa-comments"></i>
+            </a>
+            <a style="color: whitesmoke" href="/Message/Groupe">
+                <i class="fas fa-users"></i>
+            </a>
+            <a href="/Notifications/Groupe">
+                <i class="fas fa-bell"></i>
+            </a>
+            <a style="color: whitesmoke" href="/Calendrier">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+            </a>
+            <a style="color: whitesmoke" href="/Message/Annonces">
+                <i class="fas fa-bullhorn"></i>
+            </a>
+        </aside>
+
+            <!-- Liens bas -->
+            <div class="sidebar-bottom">
+                <div class="nav-icon" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                </div>
+            </div>
+
+        <!-- MAIN -->
+        <main class="kaypic-main">
+
+            <!-- HEADER CONVERSATION -->
+            <header class="kaypic-header">
+                <div class="conversation-info">
+                    <h2 id="conversation-title">Kaypic Communication</h2>
+                </div>
+            </header>
+
+            <!-- ZONE DES MESSAGES -->
+            <div class="kaypic-messages" id="messagesContainer"></div>
+
+            <!-- INPUT MESSAGE -->
+            <footer class="kaypic-input-area">
+                <!-- Bouton upload -->
+                <label for="fileInput" class="file-upload-btn">
+                    <i class="fas fa-paperclip"></i>
+                </label>
+                <input type="file" id="fileInput" hidden multiple />
+
+                <!-- Champ texte -->
+                <input type="text" id="messageInput" placeholder="Écrire un message..." autocomplete="off">
+
+                <!-- Bouton envoyer -->
+                <button id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </footer>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.min.js"></script>
+    <script src="~/js/Notes.js"></script>
+
+</body>
+</html>

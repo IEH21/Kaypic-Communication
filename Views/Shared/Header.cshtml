@@ -1,0 +1,34 @@
+﻿<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Web3_kaypic</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Web3_kaypic.styles.css" asp-append-version="true" />
+</head>
+<header class="custom-header">
+    <div class="logo"> <a asp-controller="Home" asp-action="Index">Kaypic</a> </div>
+    <nav class="auth-buttons">
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <!-- Boutons pour utilisateur CONNECTÉ -->
+            <a asp-action="Equipes" class="btn-filled">Équipes</a>
+            <a asp-action="Communication" class="btn-filled">Communication</a>
+            <a asp-controller="Circle" asp-action="Circle" class="btn-filled">Actualité</a>
+            <a asp-controller="Sponsors" asp-action="Index" class="btn-filled">Sponsors</a>
+            <a asp-controller="Profil" asp-action="Profil" class="btn-filled">Profil</a>
+            <!-- Bouton Déconnexion -->
+            <form asp-controller="Connexion" asp-action="Logout" method="post" style="display:inline;">
+                <button type="submit" class="btn-outline">Déconnexion</button>
+            </form>
+        }
+        else
+        {
+            <!-- Boutons pour utilisateur NON CONNECTÉ -->
+            <a asp-action="Inscription" class="btn-outline">Inscription</a>
+            <a asp-controller="Connexion" asp-action="Connexion" class="btn-filled">Connexion</a>
+            <a asp-action="Equipes" class="btn-filled">Équipes</a>
+            <a asp-controller="Sponsors" asp-action="Index" class="btn-filled">Sponsors</a>
+        }
+    </nav>
+</header>

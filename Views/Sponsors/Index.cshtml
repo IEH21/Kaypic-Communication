@@ -1,0 +1,43 @@
+@model IEnumerable<Web3_kaypic.Models.Sponsor>
+
+@{
+    ViewData["Title"] = "Sponsors";
+}
+
+<!-- CSS spécifique -->
+<link rel="stylesheet" href="~/css/sponsors.css" />
+
+<!-- HERO -->
+<section class="hero-banner">
+    <div class="overlay">
+        <h1 class="hero-title">Nos Sponsors</h1>
+        <p class="hero-subtitle">
+            Merci à nos partenaires qui soutiennent nos équipes et partagent nos valeurs sportives 💪
+        </p>
+    </div>
+</section>
+
+<!-- LISTE DES SPONSORS -->
+@if (Model == null || !Model.Any())
+{
+    <p class="text-center text-muted mt-5">Aucun sponsor trouvé pour cette équipe.</p>
+}
+else
+{
+    <div class="sponsors-grid">
+        @foreach (var sponsor in Model)
+        {
+            <div class="sponsor-card">
+                <img src="@sponsor.LogoUrl" alt="@sponsor.Nom" class="sponsor-logo" />
+                <h3>@sponsor.Nom</h3>
+                <span class="badge @(sponsor.Type?.ToLower())">@sponsor.Type</span>
+                <p>@sponsor.Description</p>
+
+                @if (!string.IsNullOrWhiteSpace(sponsor.SiteWeb))
+                {
+                    <a href="@sponsor.SiteWeb" target="_blank" rel="noopener" class="btn">Visiter le site</a>
+                }
+            </div>
+        }
+    </div>
+}

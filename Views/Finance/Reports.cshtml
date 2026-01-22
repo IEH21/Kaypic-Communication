@@ -1,0 +1,63 @@
+﻿@{
+ViewData["Title"] = "Rapports financiers";
+}
+
+<h2>Génération des rapports financiers</h2>
+
+<div class="card p-4 mt-3">
+    <div class="row mb-3">
+        <div class="col">
+            <label>Date début</label>
+            <input id="start" type="date" class="form-control" />
+        </div>
+        <div class="col">
+            <label>Date fin</label>
+            <input id="end" type="date" class="form-control" />
+        </div>
+        <div class="col">
+            <label>Catégorie</label>
+            <input id="category" type="text" class="form-control" placeholder="(optionnel)" />
+        </div>
+    </div>
+
+    <button class="btn btn-danger" onclick="downloadPdf()">📄 Télécharger PDF</button>
+    <button class="btn btn-success" onclick="downloadExcel()">📊 Télécharger Excel</button>
+</div>
+
+<script>
+    async function downloadPdf() {
+        const body = {
+            startDate: document.getElementById("start").value,
+            endDate: document.getElementById("end").value,
+            category: document.getElementById("category").value
+        };
+
+        const res = await fetch("/Finance/ExportPdf", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        window.location.assign(url);
+    }
+
+    async function downloadExcel() {
+        const body = {
+            startDate: document.getElementById("start").value,
+            endDate: document.getElementById("end").value,
+            category: document.getElementById("category").value
+        };
+
+        const res = await fetch("/Finance/ExportExcel", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        window.location.assign(url);
+    }
+</script>

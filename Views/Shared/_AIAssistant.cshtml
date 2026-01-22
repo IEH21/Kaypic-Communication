@@ -1,0 +1,624 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistant AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+       
+
+        /* Bouton flottant pour ouvrir l'assistant */
+        .ai-assistant-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+            .ai-assistant-trigger:hover {
+                transform: scale(1.1);
+                box-shadow: 0 12px 32px rgba(255, 107, 107, 0.6);
+            }
+
+            .ai-assistant-trigger.hidden {
+                display: none;
+            }
+
+        /* Conteneur principal de l'assistant */
+        .ai-assistant-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 400px;
+            max-width: calc(100vw - 60px);
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+            .ai-assistant-container.open {
+                display: flex;
+            }
+
+            .ai-assistant-container.minimized {
+                height: 60px;
+            }
+
+        /* Header de l'assistant */
+        .ai-assistant-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .ai-assistant-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ai-assistant-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .ai-assistant-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .ai-assistant-status {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        .ai-assistant-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+            .ai-assistant-controls button {
+                background: rgba(255, 255, 255, 0.2);
+                border: none;
+                color: white;
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.2s;
+            }
+
+                .ai-assistant-controls button:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                }
+
+        /* Corps de l'assistant */
+        .ai-assistant-body {
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            max-height: calc(100vh - 200px);
+        }
+
+        .ai-assistant-container.minimized .ai-assistant-body {
+            display: none;
+        }
+
+        /* Zone de messages */
+        .ai-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .ai-message {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+        }
+
+
+
+        .ai-message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .ai-message.user .ai-message-avatar {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .ai-message.assistant .ai-message-avatar {
+            background: #c44569;
+            color: white;
+        }
+
+        .ai-message-content {
+            flex: 1;
+        }
+
+        .ai-message-bubble {
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .ai-message.user .ai-message-bubble {
+            background: #ff6b6b;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .ai-message.assistant .ai-message-bubble {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 4px;
+        }
+
+        .ai-message-time {
+            font-size: 11px;
+            color: #999;
+            margin-top: 4px;
+            padding: 0 4px;
+        }
+
+        /* Indicateur de frappe */
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+        }
+
+            .typing-indicator.active {
+                display: block;
+            }
+
+            .typing-indicator span {
+                height: 8px;
+                width: 8px;
+                background: #999;
+                border-radius: 50%;
+                display: inline-block;
+                margin: 0 2px;
+                animation: typing 1.4s infinite;
+            }
+
+                .typing-indicator span:nth-child(2) {
+                    animation-delay: 0.2s;
+                }
+
+                .typing-indicator span:nth-child(3) {
+                    animation-delay: 0.4s;
+                }
+
+
+
+        /* Zone de saisie */
+        .ai-input-area {
+            padding: 16px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .ai-input-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .ai-input {
+            flex: 1;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            resize: none;
+            font-family: inherit;
+            max-height: 120px;
+            transition: border-color 0.2s;
+        }
+
+            .ai-input:focus {
+                outline: none;
+                border-color: #667eea;
+            }
+
+        .ai-send-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+            .ai-send-btn:hover:not(:disabled) {
+                transform: scale(1.05);
+            }
+
+            .ai-send-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+        /* Suggestions rapides */
+        .ai-quick-suggestions {
+            display: flex;
+            gap: 8px;
+            padding: 0 16px 16px;
+            flex-wrap: wrap;
+        }
+
+        .ai-suggestion-chip {
+            background: #f0f0f0;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .ai-suggestion-chip:hover {
+                background: #ff6b6b;
+                color: white;
+                border-color: #ff6b6b;
+            }
+
+        /* Message d'accueil */
+        .ai-welcome {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .ai-welcome-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ai-welcome h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .ai-welcome p {
+            font-size: 14px;
+        }
+
+        /* Scrollbar personnalisée */
+        .ai-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .ai-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .ai-messages::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+            .ai-messages::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+        }</style>
+</head>
+<body>
+
+    <!-- Bouton flottant pour ouvrir l'assistant -->
+    <button class="ai-assistant-trigger" id="aiTrigger">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <!-- Conteneur de l'assistant -->
+    <div class="ai-assistant-container" id="aiContainer">
+        <!-- Header -->
+        <div class="ai-assistant-header" onclick="toggleMinimize()">
+            <div class="ai-assistant-header-left">
+                <div class="ai-assistant-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <div class="ai-assistant-title">Assistant AI</div>
+                    <div class="ai-assistant-status">En ligne</div>
+                </div>
+            </div>
+            <div class="ai-assistant-controls">
+                <button onclick="toggleMinimize(); event.stopPropagation();" title="Réduire">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button onclick="closeAssistant(); event.stopPropagation();" title="Fermer">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Corps -->
+        <div class="ai-assistant-body">
+            <!-- Messages -->
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-welcome">
+                    <div class="ai-welcome-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Bonjour ! 👋</h3>
+                    <p>Je suis votre assistant AI. Comment puis-je vous aider aujourd'hui ?</p>
+                </div>
+            </div>
+
+            <!-- Suggestions rapides -->
+            <div class="ai-quick-suggestions" id="quickSuggestions">
+                <div class="ai-suggestion-chip" onclick="sendQuickMessage('Comment puis-je créer une nouvelle équipe ?')">
+                    📋 Créer une équipe
+                </div>
+                <div class="ai-suggestion-chip" onclick="sendQuickMessage('Comment envoyer un message ?')">
+                    💬 Envoyer un message
+                </div>
+                <div class="ai-suggestion-chip" onclick="sendQuickMessage('Aide sur le calendrier')">
+                    📅 Calendrier
+                </div>
+            </div>
+
+            <!-- Zone de saisie -->
+            <div class="ai-input-area">
+                <div class="ai-input-wrapper">
+                    <textarea class="ai-input"
+                              id="aiInput"
+                              placeholder="Posez votre question..."
+                              rows="1"></textarea>
+                    <button class="ai-send-btn" id="aiSendBtn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const aiContainer = document.getElementById('aiContainer');
+            const aiTrigger = document.getElementById('aiTrigger');
+            const aiMessages = document.getElementById('aiMessages');
+            const aiInput = document.getElementById('aiInput');
+            const aiSendBtn = document.getElementById('aiSendBtn');
+            const quickSuggestions = document.getElementById('quickSuggestions');
+
+            let isMinimized = false;
+            let conversationHistory = [];
+
+            // Ouvrir l'assistant
+            aiTrigger.addEventListener('click', () => {
+                aiContainer.classList.add('open');
+                aiTrigger.classList.add('hidden');
+                aiInput.focus();
+            });
+
+            // Fermer l'assistant
+            window.closeAssistant = function() {
+                aiContainer.classList.remove('open');
+                aiTrigger.classList.remove('hidden');
+            };
+
+            // Réduire/Agrandir
+            window.toggleMinimize = function() {
+                isMinimized = !isMinimized;
+                aiContainer.classList.toggle('minimized', isMinimized);
+            };
+
+            // Auto-resize du textarea
+            aiInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            });
+
+            // Envoyer avec Enter
+            aiInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            // Envoyer un message rapide
+            window.sendQuickMessage = function(message) {
+                aiInput.value = message;
+                sendMessage();
+            };
+
+            // Envoyer un message
+            window.sendMessage = async function() {
+                const message = aiInput.value.trim();
+                if (!message) return;
+
+                // Masquer les suggestions après le premier message
+                quickSuggestions.style.display = 'none';
+
+                // Supprimer le message d'accueil
+                const welcome = aiMessages.querySelector('.ai-welcome');
+                if (welcome) welcome.remove();
+
+                // Afficher le message de l'utilisateur
+                addMessage('user', message);
+                aiInput.value = '';
+                aiInput.style.height = 'auto';
+
+                // Ajouter à l'historique
+                conversationHistory.push({
+                    role: 'user',
+                    content: message
+                });
+
+                // Désactiver l'input pendant le traitement
+                aiInput.disabled = true;
+                aiSendBtn.disabled = true;
+
+                // Afficher l'indicateur de frappe
+                showTypingIndicator();
+
+                try {
+                    // Appel au contrôleur
+                    const response = await fetch('/AIAssistant/Chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            message: message,
+                            history: conversationHistory
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        const assistantMessage = data.message;
+
+                        // Ajouter à l'historique
+                        conversationHistory.push({
+                            role: 'assistant',
+                            content: assistantMessage
+                        });
+
+                        // Masquer l'indicateur et afficher la réponse
+                        hideTypingIndicator();
+                        addMessage('assistant', assistantMessage);
+                    } else {
+                        throw new Error(data.error || 'Erreur inconnue');
+                    }
+
+                } catch (error) {
+                    console.error('Erreur:', error);
+                    hideTypingIndicator();
+                    addMessage('assistant', '❌ Désolé, une erreur s\'est produite. Veuillez réessayer.');
+                } finally {
+                    // Réactiver l'input
+                    aiInput.disabled = false;
+                    aiSendBtn.disabled = false;
+                    aiInput.focus();
+                }
+            };
+
+            // Ajouter un message à la conversation
+            function addMessage(type, content) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `ai-message ${type}`;
+
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+                messageDiv.innerHTML = `
+                    <div class="ai-message-avatar">
+                        <i class="fas fa-${type === 'user' ? 'user' : 'robot'}"></i>
+                    </div>
+                    <div class="ai-message-content">
+                        <div class="ai-message-bubble">${content.replace(/\n/g, '<br>')}</div>
+                        <div class="ai-message-time">${timeStr}</div>
+                    </div>
+                `;
+
+                // Insérer avant l'indicateur de frappe s'il existe
+                const typingIndicator = aiMessages.querySelector('.typing-indicator');
+                if (typingIndicator) {
+                    aiMessages.insertBefore(messageDiv, typingIndicator.parentElement);
+                } else {
+                    aiMessages.appendChild(messageDiv);
+                }
+
+                // Scroll automatique
+                aiMessages.scrollTop = aiMessages.scrollHeight;
+            }
+
+            // Afficher l'indicateur de frappe
+            function showTypingIndicator() {
+                const indicatorDiv = document.createElement('div');
+                indicatorDiv.className = 'ai-message assistant';
+                indicatorDiv.innerHTML = `
+                    <div class="ai-message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="ai-message-content">
+                        <div class="typing-indicator active">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                `;
+                aiMessages.appendChild(indicatorDiv);
+                aiMessages.scrollTop = aiMessages.scrollHeight;
+            }
+
+            // Masquer l'indicateur de frappe
+            function hideTypingIndicator() {
+                const indicator = aiMessages.querySelector('.typing-indicator');
+                if (indicator && indicator.parentElement.parentElement) {
+                    indicator.parentElement.parentElement.remove();
+                }
+            }
+        })();
+    </script>
+
+</body>
+</html>

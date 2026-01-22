@@ -1,0 +1,307 @@
+﻿/* === Palette Kaypic ===
+   #5c0010 → Rouge foncé (header/footer)
+   #9e3b42 → Rouge moyen (hover / boutons secondaires)
+   #e4717a → Rouge clair (boutons principaux)
+   #f5abb0 → Rose pastel (fonds de sections)
+   #ffe4ea → Très clair (fond général)
+   #000000 → Noir (titres)
+   #F9F8F8→ Blanc (texte)
+   #FCF9F9→ Blanc (background)
+*/
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    color: #FAF3F3;
+    background-color: #5c0010;
+}
+
+/* === Header === */
+.custom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    background-color: #5c0010;
+    color: #ffe4ea;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+    .custom-header .logo {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #ffe4ea;
+        letter-spacing: 1px;
+        margin-left: 1rem;
+    }
+
+    .custom-header .auth-buttons a {
+        margin-left: 1rem;
+        padding: 0.6rem 1.4rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+/* === Boutons === */
+.btn-primary {
+    background-color: #e4717a;
+    color: #F9F8F8;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.7rem 2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(228, 113, 122, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+    .btn-primary:hover {
+        background-color: #9e3b42;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(158, 59, 66, 0.5);
+    }
+
+.btn-outline {
+    background-color: transparent;
+    color: #ffe4ea;
+    border: 2px solid #ffe4ea;
+}
+
+    .btn-outline:hover {
+        background-color: #9e3b42;
+        border-color: #9e3b42;
+    }
+
+.btn-filled {
+    background-color: #9e3b42;
+    color: #ffffff;
+    border: none;
+}
+
+    .btn-filled:hover {
+        background-color: #5c0010;
+    }
+
+/* === Formulaire section === */
+.formulaire {
+    background-color: #ffe4ea;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #000000;
+    border-radius: 5px solid #ff9999;
+    width: 100%;
+}
+
+    .formulaire .overlay {
+        background-color: rgba(255, 228, 234, 0.85);
+        padding: 2rem;
+        border-radius: 15px;
+        max-width: 500px;
+        box-shadow: 0 4px 8px rgba(92, 0, 16, 0.2);
+    }
+
+        .formulaire .overlay h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #5c0010;
+        }
+
+        .formulaire .overlay p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #9e3b42;
+        }
+
+/* === Formulaire === */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #f5abb0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+    .form-control:focus {
+        border-color: #e4717a;
+        outline: none;
+        box-shadow: 0 0 5px rgba(228, 113, 122, 0.4);
+    }
+
+.text-danger {
+    color: #5c0010;
+    font-size: 0.9rem;
+}
+
+/* === Section Mission === */
+.mission {
+    background-color: #f5abb0;
+    color: #5c0010;
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+    .mission p {
+        font-size: 1.2rem;
+        line-height: 1.5;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+/* === Features / cartes === */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    background-color: #ffe4ea;
+    padding: 3rem 2rem;
+}
+
+.feature {
+    background-color: #f5abb0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 280px;
+    box-shadow: 0 4px 8px rgba(92, 0, 16, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #000000;
+}
+
+    .feature:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 6px 14px rgba(92, 0, 16, 0.3);
+    }
+
+/* === Footer === */
+.footer {
+    background-color: #4d1f1f;
+    color: white;
+    padding: 3rem 5rem;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    margin-bottom: 2rem;
+    list-style: none;
+}
+
+    .footer-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+    }
+
+        .footer-links a:hover {
+            color: #c32020;
+        }
+
+.footer .copyright {
+    position: absolute;
+    bottom: 1rem;
+    left: 5rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* === Conteneur global === */
+.container {
+    background-color: #ffe4ea;
+}
+
+/* ============================= */
+/* INSCRIPTION = STYLE CONNEXION */
+/* ============================= */
+
+/* centre le formulaire comme la connexion */
+.formulaire {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffe4ea;
+    padding: 24px 12px;
+}
+
+    /* transforme le contenu du formulaire en "carte" */
+    .formulaire > form,
+    .formulaire > i,
+    .formulaire > .alert,
+    .formulaire > p {
+        width: 100%;
+    }
+
+    /* carte visuelle */
+    .formulaire form {
+        width: 360px;
+        background: #ffffff;
+        padding: 36px 32px;
+        border-radius: 8px;
+        box-shadow: 0 0 6px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    /* icône utilisateur */
+    .formulaire i {
+        color: #5c0010;
+        margin-bottom: 16px;
+    }
+
+    /* champs */
+    .formulaire .form-control {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        margin: 6px 0;
+    }
+
+    /* bouton */
+    .formulaire .btn-primary {
+        width: 100%;
+        margin-top: 12px;
+    }
+
+    /* messages */
+    .formulaire .alert {
+        width: 360px;
+        margin-bottom: 12px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    /* lien bas */
+    .formulaire p {
+        width: 360px;
+        font-size: 13px;
+        margin-top: 14px;
+    }

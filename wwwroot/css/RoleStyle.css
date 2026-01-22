@@ -1,0 +1,196 @@
+﻿/* ================================
+   PALETTE & VARIABLES
+================================= */
+:root {
+    --rouge-fonce: #5c0010;
+    --rouge-moyen: #9e3b42;
+    --rouge-clair: #e4717a;
+    --rose-pastel: #f5abb0;
+    --rose-tres-clair: #ffe4ea;
+    --noir: #1a1a1a;
+    --blanc: #ffffff;
+    --radius: 14px;
+    --shadow: 0 4px 16px rgba(0,0,0,0.15);
+    --shadow-strong: 0 6px 18px rgba(92,0,16,0.35);
+}
+
+/* ================================
+   GLOBAL
+================================= */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: var(--rose-tres-clair);
+    color: var(--noir);
+}
+
+h1, h2 {
+    font-weight: 800;
+    color: var(--rouge-fonce);
+}
+
+/* ================================
+   BOUTONS PRINCIPAUX (VERSION PREMIUM)
+================================= */
+
+.btn-main {
+    background: linear-gradient(135deg, var(--rouge-moyen), var(--rouge-fonce));
+    color: var(--blanc);
+    padding: 0.75rem 2.2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(158, 59, 66, 0.35);
+    transition: all 0.3s ease;
+}
+
+    .btn-main:hover {
+        background: linear-gradient(135deg, var(--rouge-fonce), #3a0008);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 14px rgba(92, 0, 16, 0.5);
+    }
+
+    .btn-main:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 8px rgba(92, 0, 16, 0.3);
+    }
+
+/* Boutons plus petits (édition, suppression) */
+.btn-sm {
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+/* Danger btn btn-sm btn-primary*/
+.btn-danger {
+    background: linear-gradient(135deg, #a11717, #5c0010);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(161, 23, 23, 0.4);
+}
+
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #5c0010, #2a0005);
+        transform: translateY(-2px);
+    }
+
+/*edit*/
+/* === EDIT (gris premium) === */
+.btn-primary {
+    background: linear-gradient(135deg, #6e6e6e, #4a4a4a);
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(80, 80, 80, 0.4);
+    transition: 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #4a4a4a, #2c2c2c);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(40, 40, 40, 0.6);
+    }
+
+
+
+/* Secondaire (retour, annuler) */
+.btn-secondary {
+    background: var(--rose-pastel);
+    color: var(--rouge-fonce);
+    border: none;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(245, 171, 176, 0.4);
+}
+
+    .btn-secondary:hover {
+        background: var(--rouge-clair);
+        color: white;
+    }
+
+/* ================================
+   CARTES & FORMULAIRES
+================================= */
+form, .card-admin {
+    background: var(--blanc);
+    padding: 22px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-top: 20px;
+}
+
+.form-control {
+    border-radius: var(--radius);
+    border: 1px solid var(--rose-pastel);
+    padding: 10px;
+}
+
+    .form-control:focus {
+        border-color: var(--rouge-clair);
+        box-shadow: 0 0 4px var(--rouge-clair);
+    }
+
+/* ====== TABLE ====== */
+.table {
+    width: 100%; /* prend toute la largeur de la page */
+    margin: 20px 0; /* juste un peu d’espace en haut/bas */
+    border-collapse: collapse;
+    background-color: var(--blanc);
+    border: 2px solid var(--rouge-moyen);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+    .table th, .table td {
+        padding: 12px;
+        border: 1px solid var(--rouge-moyen);
+        text-align: center; /* contenu centré */
+    }
+
+    .table th {
+        background-color: var(--rouge-moyen);
+        color: var(--blanc);
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: var(--rose-tres-clair);
+    }
+
+    .table tr:hover {
+        background-color: var(--rose-pastel);
+    }
+
+
+/* ================================
+   TITRES ADMIN
+================================= */
+.titre {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--rouge-fonce);
+    margin-bottom: 18px;
+    text-align:center;
+}
+
+/* ================================
+   MESSAGES D'ERREURS
+================================= */
+.text-danger {
+    color: var(--rouge-fonce);
+    font-weight: 700;
+}
+
+/*SUPPRESSION DES SOULIGNEMENTS SUR TOUS LES LIENS ET BOUTONS */
+a, a:hover, a:focus, a:active,
+.btn, .btn:hover, .btn:focus, .btn:active {
+    text-decoration: none !important;
+}
+

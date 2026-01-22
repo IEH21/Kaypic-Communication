@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using web3_kaypic.Models
+@model IEnumerable<IdentityRole>
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/RoleStyle.css" />
+
+<h1 class="titre">Gestion des rôles</h1>
+<a asp-action="Create" class="btn-main">Créer un rôle</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nom du rôle</th>
+            <th>Utilisateurs</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            var userManager = Context.RequestServices.GetService<UserManager<ApplicationUser>>();
+            var usersInRole = new List<string>();
+
+            foreach (var user in userManager.Users)
+            {
+                if (await userManager.IsInRoleAsync(user, role.Name))
+                {
+                    usersInRole.Add(user.Email);
+                }
+            }
+
+            <tr>
+                <td>@role.Name</td>
+                <td>@string.Join(", ", usersInRole)</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="Update" asp-route-id="@role.Id">Modifier</a>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@role.Id">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

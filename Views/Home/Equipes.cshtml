@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Web3_kaypic.Models.Equipe>
+
+@{
+
+    ViewData["Title"] = "Nos Équipes Sportives";
+
+}
+<h2 class="text-center my-4">Nos Équipes Sportives</h2>
+<div class="row justify-content-center">
+
+    @foreach (var equipe in Model)
+
+    {
+<div class="col-md-4 mb-4">
+<div class="card shadow-lg border-0">
+<img src="@equipe.ImageUrl" class="card-img-top" alt="@equipe.Nom" style="height:200px; object-fit:cover;" />
+<div class="card-body text-center">
+<h5 class="card-title text-primary fw-bold">@equipe.Nom</h5>
+<p><strong>Sport :</strong> @equipe.Sport</p>
+<p><strong>Entraîneur :</strong> @equipe.Entraineur</p>
+<p><strong>Joueurs :</strong> @equipe.NbJoueurs</p>
+<p>
+<strong>Bilan :</strong> 
+
+                        @equipe.Victoires Victoires – @equipe.Defaites Défaites – @equipe.Nuls Nuls
+</p>
+<p>@equipe.Description</p>
+<a href="/Sponsors?equipeId=@equipe.Id" class="btn btn-primary mt-2">
+
+                        Voir les sponsors
+</a>
+</div>
+</div>
+</div>
+
+    }
+</div>
+ 
